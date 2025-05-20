@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitnessZone</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+  <nav>
+    <div class="logo"><b>FitnessZone</b></div>
+    <div class="nav-items">
+      <button onclick="showContent('home')">Home</button>
+      <button onclick="showContent('todo')">To-Do List</button>
+      <button onclick="showContent('contact us')">Contact us</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="main-content" id="content"></div>
+  </div>
+
+  <script>
+    function showContent(section) {
+      const content = document.getElementById('content');
+      if (section === 'home') {
+        content.innerHTML = `<h2 style="color:#00a8cc;">Welcome to FitnessZone</h2>
+          <p>Explore a variety of fitness practices to achieve your physical and mental peak.</p>
+          <div class="section-grid two-rows">
+            <div class="card">
+              <img src="https://img.icons8.com/ios-filled/50/000000/running.png" alt="Cardio" />
+              <h3>Cardio</h3>
+              <p>Improve heart health, endurance, and burn fat through consistent aerobic activity.</p>
+            </div>
+            <div class="card">
+              <img src="https://img.icons8.com/ios-filled/50/000000/dumbbell.png" alt="Gym" />
+              <h3>Gym</h3>
+              <p>Build strength and muscle mass with structured weight training and machines.</p>
+            </div>
+            <div class="card">
+              <img src="calesthenics.png" alt="Calisthenics" />
+              <h3>Calisthenics</h3>
+              <p>Train using your bodyweight for mobility, control, and lean muscle gains.</p>
+            </div>
+            <div class="card">
+              <img src="sprint.png" alt="Sprinting" />
+              <h3>Sprinting</h3>
+              <p>Enhance explosiveness and metabolism with short bursts of high-speed runs.</p>
+            </div>
+            <div class="card">
+              <img src="lotus.png" alt="Yoga" />
+              <h3>Yoga</h3>
+              <p>Boost flexibility, posture, and mental calm through mindful movement and breath.</p>
+            </div>
+            <div class="card">
+              <img src="https://img.icons8.com/ios-filled/50/000000/meditation-guru.png" alt="Meditation" />
+              <h3>Meditation</h3>
+              <p>Find clarity and reduce stress through daily mindfulness and breathing exercises.</p>
+            </div>
+          </div>`;
+      } else if (section === 'contact us') {
+        content.innerHTML = `
+        
+        <h2 style="color:#00a8cc;">Contact us</h2>
+          <form onsubmit="return validateForm(event)">
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="number" id="age" placeholder="Age" required />
+            <input type="email" id="email" placeholder="Email" required /><br>
+            <center>
+            <button type="submit" class="Submit">Submit</button>
+             </center>
+          </form>
+            
+        `;
+      } else if (section === 'todo') {
+        content.innerHTML = `
+        <center>
+          <h2 style="color:#00a8cc;">To Do List</h2>
+          <div class="todo-list">
+            <input type="text" id="taskInput" placeholder="Enter a new task" />
+            <div id="tasks"></div>
+          </div><br>
+            <button type="button" class="btn" onclick="addTask()">Add Task</button>
+          </center>
+        `;
+      }
+    }
+
+    function validateForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name || !age || !email) {
+        alert("All fields are required.");
+        return false;
+      }
+      if (!emailPattern.test(email)) {
+        alert("Enter a valid email address.");
+        return false;
+      }
+      alert("Form submitted successfully!");
+      return true;
+    }
+
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const taskText = taskInput.value.trim();
+      if (!taskText) return;
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'todo-item';
+      taskDiv.innerHTML = `${taskText} <button onclick="this.parentElement.remove()">Remove</button>`;
+      document.getElementById('tasks').appendChild(taskDiv);
+      taskInput.value = '';
+    }
+
+    showContent('home');
+  </script>
+
+</body>
+</html>
